@@ -26,7 +26,7 @@ public class NetServer implements ServerBroadcasterInterface, Runnable {
         serverSocket = new ServerSocket(port);
         running = true;
         new Thread(this, "Acceptor-Thread").start();
-        presenter.logEvent("Server started on port " + port);
+        System.out.println("[SERVER-NET] Server started on port " + port);
     }
 
     public void stopServer() {
@@ -39,7 +39,7 @@ public class NetServer implements ServerBroadcasterInterface, Runnable {
                 e.printStackTrace();
             }
         }
-        presenter.logEvent("Server stopped.");
+        System.out.println("[SERVER-NET] Server stopped.");
     }
 
     @Override
@@ -59,12 +59,12 @@ public class NetServer implements ServerBroadcasterInterface, Runnable {
 
     public void registerClient(String studentCode, ClientHandler handler) {
         clients.put(studentCode, handler);
-        presenter.logEvent("Client registered: " + studentCode);
+        System.out.println("[SERVER-NET] Client registered: " + studentCode);
     }
 
     public void removeClient(String studentCode) {
         clients.remove(studentCode);
-        presenter.logEvent("Client removed: " + studentCode);
+        System.out.println("[SERVER-NET] Client removed: " + studentCode);
     }
 
     @Override

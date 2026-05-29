@@ -37,7 +37,15 @@ public class ServerFrame extends JFrame implements ViewInterface {
 
     @Override
     public void start() {
+        int port = promptPort();
+        presenter.startNetwork(port);
         setVisible(true);
+    }
+
+    private int promptPort() {
+        String in = JOptionPane.showInputDialog(this, "Puerto del servidor:", "8080");
+        try { return Integer.parseInt(in.trim()); } 
+        catch (Exception e) { return 8080; }
     }
 
     @Override

@@ -3,23 +3,20 @@ package co.edu.uptc.server.interfaces;
 import co.edu.uptc.shared.pojo.Player;
 import java.util.List;
 
-public interface PresenterInterface {
+public interface PresenterInterface extends ModelObserver {
     void setModel(ModelInterface model);
     void setView(ViewInterface view);
 
-    // Net → Presenter
-    void handleClientMessage(String studentCode, String messageJson);
-    void handleClientDisconnect(String studentCode);
+    // From Network to Model
+    void onConnectReceived(String studentCode);
+    void onMoveReceived(String studentCode, String direction);
+    void onDisconnectReceived(String studentCode);
 
-    // View → Presenter
+    // From View to Model
     void onStartGameClicked();
     void onFinishGameClicked();
+    void startNetwork(int port);
 
-    // Model → Presenter → View
-    void updateGameState(List<Player> players);
-    void logEvent(String message);
-
-    // Broadcaster access
-    ServerBroadcasterInterface getBroadcaster();
+    // From Presenter to Network
     void setBroadcaster(ServerBroadcasterInterface broadcaster);
 }
